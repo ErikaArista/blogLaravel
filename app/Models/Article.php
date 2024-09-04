@@ -11,5 +11,22 @@ class Article extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    //relacion de uno a muchos inversa (article-user)
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    //relacion de uno a muchos (article-comment)
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    //relacion de uno a muchos inversa (catefory-article)
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

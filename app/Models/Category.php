@@ -11,4 +11,9 @@ class Category extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    //relacion uno a muchos (article-category)
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }
