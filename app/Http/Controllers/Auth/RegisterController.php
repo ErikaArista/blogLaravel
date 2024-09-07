@@ -65,12 +65,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'full_name' => $data['full_name'],
+            'full_name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->notitfy(new WelcomeEmail($user));
+        // Corregir el nombre del método de notitfy a notify
+        $user->notify(new WelcomeEmail($user));
 
         return $user;
 

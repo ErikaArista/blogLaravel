@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         //llamar a factory
-
         Category::factory(8)->create();
         Article::factory(20)->create();
         Comment::factory(20)->create();
