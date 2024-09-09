@@ -16,6 +16,13 @@ class WelcomeEmail extends Notification
      * Create a new notification instance.
      */
 
+    protected $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
     /**
      * Get the notification's delivery channels.
      *
@@ -29,15 +36,15 @@ class WelcomeEmail extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->greeting('Hola, '.$this->$notifiable->full_name)
-                    ->line('Es hora de disfrutar de nuestro blog')
-                    ->action('Ir al blog', url('/'))
-                    ->line('¡Gracias por formar parte!');
+            ->greeting('Hola, '.$this->user->full_name)
+            ->line('Es hora de disfrutar de nuestro blog')
+            ->action('Ir al blog', url('/'))
+            ->line('¡Gracias por formar parte!');
     }
-
     /**
      * Get the array representation of the notification.
      *

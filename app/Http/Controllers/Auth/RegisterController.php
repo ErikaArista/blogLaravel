@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 class RegisterController extends Controller
 {
@@ -70,9 +72,13 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        // Corregir el nombre del método de notitfy a notify
-        $user->notify(new WelcomeEmail($user));
-
+        try {
+            $user->notify(new WelcomeEmail($user));
+        } catch (\Exception $e) {
+            // Registrar el error
+            Log::error('Error al enviar la notificación: '.$e->getMessage());
+        }
+    
         return $user;
 
     }
