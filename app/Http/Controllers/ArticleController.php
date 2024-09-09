@@ -43,7 +43,24 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Formulario
+
+        $request->merge([
+            'user_id'=> Auth::user()->id,
+        ]);
+
+        //Guardado de solicitudes
+        $article = $request->all();
+
+        if($request->hasFile('image'))
+        {
+            $article['image'] = $request->file('image')->store('articles');
+        }
+
+        Article::create($article);
+
+        return redirect()->action([ArticleController::class, 'index'])
+                            ->with('success-create', 'Articulo creado correctamente');
     }
 
     /**
