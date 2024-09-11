@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 class ArticleController extends Controller
@@ -41,7 +43,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         //Formulario
 
@@ -68,7 +70,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $comments = $article->comments()->simplePaginate(5);
+        return view('subscriber.articles.show', compact('article', 'comments'));
     }
 
     /**
@@ -76,15 +79,39 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::select(['id', 'name'])
+                                ->where('status', 1)
+                                ->get();
+
+        return view('admin.articles.edit', compact('categories','article' ));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        if($request->hasFile('image'))
+        {
+            //Elimina la imagen
+            File::delete(public_path('storage/' . $article->image));
+            //Asigna la nueva imagen 
+            $article['image'] = $request->file('image')->store('articles');
+        }
+        //Actualizar datos
+
+        $article->update([
+            'title' => $request->title,
+            'slug' => $request->slug,
+            'introdution' => $request->introdution,
+            'body' => $request->body,
+            'user_id' => Auth::user()->id,
+            'category_id' => $request->category_id,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->action([ArticleController::class, 'index'])
+                            ->with('success-update', 'Articulo modificado correctamente');
     }
 
     /**
@@ -92,6 +119,15 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        //Eliminar imagenes del articulo
+        if($article->image)
+        {
+            File::delete(public_path('storage/' . $article->image));
+        }
+
+        $article->delete();
+
+        return redirect()->action([ArticleController::class, 'index'], compact('article'))
+                            ->with('success-delete', 'Articulo eliminado correctamente');
     }
 }

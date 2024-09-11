@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Http\Requests\request;
 
-class ArticleRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,19 +21,16 @@ class ArticleRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        $slug = request()->isMethod('put') ? 'required|unique:articles,slug,'.$this->id : 'required|unique:articles';
+        $slug = request()->isMethod('put') ? 'required|unique:categories,slug,'.$this->id : 'required|unique:categories';
         $image = request()->isMethod('put') ? 'nullable|mimes:jpeg,jpg,png,gif,svg|max:8000' : 'required|image';
 
 
         return [
-            'title' => 'required|min:5|max2',
+            'name' => 'required|min:60',
             'slug' => $slug,
-            'introdution' => 'required|min:10|max:255',
-            'body' => 'required',
             'image' => $image,
-            'status' => 'required|boolean',
-            'category_id' => 'required|integer'
+            'is_featured' => 'required|boolean',
+            'status' => 'required|boolean'
         ];
     }
 }
