@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,12 +34,19 @@ Route::resource('categories', CategoryController::class)
 ->except('show')    
 ->names('categories');
 
-
 //ver articulos
 Route::get('articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
 //ver articulos por categorias
 Route::get('category/{category}', [CategoryController::class, 'detail'])->name('categories.detail');
+
+//comentarios
+Route::resource('comments', CommentController::class)
+                ->only('index', 'destroy')
+                ->names('comments');
+
+//Guardar comentarios
+Route::get('/comment', [CommentController::class, 'store'])->name('comments.store');
 
 Auth::routes();
 
