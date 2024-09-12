@@ -6,6 +6,9 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\ProfileRequest;
+use App\Models\Article;
+
 
 use Illuminate\Http\Request;
 
@@ -40,7 +43,13 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        $articles = Article::where([
+            ['user_id', $profile->user_id], 
+            ['status', '1']])
+            ->simplePaginate(8);
+        
+        return view('subscriber.profiles.show', compact('profile','articles'));
+
     }
 
     /**
@@ -54,7 +63,7 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Profile $profile)
+    public function update(ProfileRequest $request, Profile $profile)
     {
         $user = Auth::user();
 
@@ -70,12 +79,19 @@ class ProfileController extends Controller
         //asignar nombre y correo
         $user->full_name = $request->full_name;
         $user->email = $request->email;
+        //Asignar campos adicionales 
+        $user->profile->profession = $request->profession;
+        $user->profile->about = $request->about;
+        $user->profile->photo = $photo;
+        $user->profile->twitter = $request->twitter;
+        $user->profile->linkedin = $request->linkedin;
+        $user->profile->facebook = $request->facebook; 
         //asignar foto
         $user->profile->photo = $photo;
-        //guardar cambios
-        $user->save();
-        $profile->save();
-
+        //Guardar campos de usuario 
+        $user->save(); 
+        //Guardar campos de perfil 
+        $user->profile->save();
         return redirect()->route('profiles.edit', $user->profile->id);
 
 

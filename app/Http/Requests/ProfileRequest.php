@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PrifileRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,12 @@ class PrifileRequest extends FormRequest
         return [
             'full_name' => 'required',
             'email' => 'required',
-            'photo' => 'nullable|mimes:jpeg, jpg, png, gif, svg',
+            'photo' => 'nullable|mimes:jpeg, jpg, png',
+            'profession' => 'nullable|max:60',
+            'about' => 'nullable|max:255',
+            'twitter' => 'nullable|url', 
+            'linkedin' => 'nullable|url',
+            'facebook' => 'nullable|url',
         ];
     }
 }
