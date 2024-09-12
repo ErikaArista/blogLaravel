@@ -88,8 +88,6 @@ class ProfileController extends Controller
         $user->profile->facebook = $request->facebook; 
         //asignar foto
         $user->profile->photo = $photo;
-        //Guardar campos de usuario 
-        $user->save(); 
         //Guardar campos de perfil 
         $user->profile->save();
         return redirect()->route('profiles.edit', $user->profile->id);
