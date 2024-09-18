@@ -46,6 +46,18 @@ class User extends Authenticatable
         ];
     }
 
+    //crear perfil cuando se crea un usuario
+    protected static function boot()
+    {
+        parent::boot();
+
+        //Asignar perfil al resgistrar un usuario
+        static::created(function ($user) {
+            $user->profile()->create([]);
+        });
+    }
+
+
     //relacion de uno a uno (user-profile)
     public function profile()
     {
