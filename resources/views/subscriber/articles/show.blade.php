@@ -1,3 +1,17 @@
+@extends('layouts.base')
+
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/manage_post/post/css/article_show.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/manage_post/comments/css/comments.css')}}">
+@endsection
+
+@section('title', 'Articulo')
+
+@section('content')
+
+@include('layouts.navbar')
+
+
 <div class="content-post">
 
     <div class="post-title line">
@@ -35,3 +49,4 @@
 <div class="text-danger text-center">
     <p class="fs-5"></p>
 </div>
+@endsection

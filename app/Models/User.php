@@ -53,7 +53,7 @@ class User extends Authenticatable
 
         //Asignar perfil al resgistrar un usuario
         static::created(function ($user) {
-            $user->profile()->create([]);
+            $user->profile()->create();
         });
     }
 
