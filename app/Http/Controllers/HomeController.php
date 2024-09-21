@@ -17,26 +17,20 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        //obtener los articulos publicos(1)
+        // Obtener los artículos públicos
         $articles = Article::where('status', '1')
-                    ->orderBy('id', 'desc')
-                    ->simplePaginate(10);
-
-        //Obtener las categorias por publicos y destacados
+            ->orderBy('id', 'desc')
+            ->simplePaginate(10);
+    
+        // Obtener las categorías públicas y destacadas
         $navbar = Category::where([
             ['status', '1'],
             ['is_featured', '1']
-        ])->paginate(3);
-
-        return view('home.index', compact('articles','navbar' ));
+        ])->get(); // Cambiar a get()
+    
+        return view('home.index', compact('articles', 'navbar'));
     }
 
     public function all()

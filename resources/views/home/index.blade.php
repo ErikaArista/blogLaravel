@@ -32,7 +32,7 @@
                 <a href="{{route('articles.show', $article->slug)}}">
                     <h2 class="title">{{Str::limit($article->title, 60, '...')}}</h2>
                 </a>
-                <p class="introduction">{{Str::limit($article->introduction, 100, '...')}}</p>
+                <p class="introduction">{{Str::limit($article->introdution, 100, '...')}}</p>
             </div>
         </article>
     @endforeach

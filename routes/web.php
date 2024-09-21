@@ -13,7 +13,7 @@ use App\Http\Controllers\ProfileController;
 
 //Rutas principales
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-Route::get('/all', [HomeController::class, 'all'])->name('home.all');
+Route::get('/all', [HomeController::class, 'all'])->name('home.all-categories');
 
 //Rutas para los articulos
 
@@ -51,6 +51,7 @@ Route::resource('comments', CommentController::class)
 
 //Guardar comentarios
 Route::get('/comment', [CommentController::class, 'store'])->name('comments.store');
+
 
 Auth::routes();
 

@@ -9,34 +9,32 @@
 
 @section('content')
 
-@include('layouts.navbar')
-
 
 <div class="content-post">
 
     <div class="post-title line">
-        <h2 class="fw-bold"></h2>
+        <h2 class="fw-bold">{{$article->title}}</h2>
     </div>
 
     <div class="post-introduction line">
-        <p></p>
+        <p>{{$article->introdution}}</p>
     </div>
 
     <div class="post-author line">
-        <img src="" class="img-author">
+        <img src="{{$article->user->profile->photo ? asset('storage/'. $article->user->profile->photo) : asset('img/ user-default.png')}}" class="img-author">
 
         <span>Autor:
-            <a href="#"></a>
+            <a href="#">{{$article->user->full_name}}</a>
         </span>
     </div>
 
     <hr>
 
     <div class="post-image">
-        <img src="" alt="imagen" class="post-image-img">
+        <img src="{{asset('storage/'. $article->image)}}" alt="imagen" class="post-image-img">
     </div>
 
-    <div class="post-body line"></div>
+    <div class="post-body line">{!! $article->body !!}</div>
     <hr>
 </div>
 
