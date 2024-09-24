@@ -50,7 +50,7 @@ Route::resource('comments', CommentController::class)
                 ->names('comments');
 
 //Guardar comentarios
-Route::get('/comment', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/comment', [CommentController::class, 'store'])->name('comments.store');
 
 
 Auth::routes();

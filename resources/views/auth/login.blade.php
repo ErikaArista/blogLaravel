@@ -19,7 +19,7 @@
             autofocus>
 
             @error('email')
-            <span class="text-danger">
+            <span class="alert-red">
                 <span>* {{$message}}</span>
             </span>
             @enderror
@@ -30,7 +30,7 @@
             <input type="password" name="password" placeholder="Contraseña" value="">
 
             @error('password')
-            <span class="text-danger">
+            <span class="alert-red">
                 <span>* {{$message}}</span>
             </span>
             @enderror
