@@ -1,21 +1,38 @@
-<div class="text-primary">
-    <h2 class="fw-bold fs-1"></h2>
-</div>
+@extends('layouts.base')
 
-<div class="article-container">
+@section('styles')
+    <link rel="stylesheet" href="{{asset('css/manage_post/categories/css/article_category.css')}}">
+@endsection
 
-    <article class="article">
-        <img src="" class="img">
-        <div class="card-body">
-            <a href="#">
-                <h2 class="title"></h2>
-            </a>
-            <p class="introduction"></p>
-        </div>
-    </article>
+@section('title')
+|   {{$category->name}}
+@endsection
 
-</div>
+@section('content')
 
-<div class="links-paginate">
-    
-</div>
+@include('layouts.navbar')
+
+    <div class="text-primary">
+        <h2 class="fw-bold fs-1">{{strtoupper($category->name)}}</h2>
+    </div>
+
+    <div class="article-container">
+
+        @foreach ($articles as $article)
+            <article class="article">
+                <img src="{{asset('storage/' . $article->image)}}" class="img">
+                <div class="card-body">
+                    <a href="{{route('articles.show', $article->slug)}}">
+                        <h2 class="title">{{Str::limit($article->title, 60, '...')}}</h2>
+                    </a>
+                    <p class="introduction">{{Str::limit($article->introdution, 100, '...')}}</p>
+                </div>
+            </article>
+        @endforeach
+    </div>
+
+    <div class="links-paginate">
+        {{$articles->links()}}
+    </div>
+
+@endsection
