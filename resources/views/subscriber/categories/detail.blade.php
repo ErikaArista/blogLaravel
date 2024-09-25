@@ -13,7 +13,7 @@
 @include('layouts.navbar')
 
     <div class="text-primary">
-        <h2 class="fw-bold fs-1">{{strtoupper($category->name)}}</h2>
+        <h3 class="fw-bold fs-1">{{strtoupper($category->name)}}</h3>
     </div>
 
     <div class="article-container">
