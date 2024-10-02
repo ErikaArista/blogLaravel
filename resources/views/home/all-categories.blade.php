@@ -18,7 +18,7 @@
     <!-- Listar categorías -->
     @foreach ($categories as $category)
         <article class="article category">
-            <img src="{{asset('storage/' . $category->image)}}" class="img">
+            <img src="{{ asset('storage/' . $category->image) }}" class="img">
             <div class="card-body">
                 <a href="{{route('categories.detail', $category->slug)}}">
                     <h2 class="title category fs-4">{{$category->name}}</h2>

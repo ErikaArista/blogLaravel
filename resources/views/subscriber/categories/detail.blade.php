@@ -17,7 +17,7 @@
     </div>
 
     <div class="article-container">
-
+        {{-- Mostrar por categorias destacadas --}}
         @foreach ($articles as $article)
             <article class="article">
                 <img src="{{asset('storage/' . $article->image)}}" class="img">

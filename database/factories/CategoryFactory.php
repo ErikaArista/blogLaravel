@@ -20,7 +20,7 @@ class CategoryFactory extends Factory
     {
         $name = $this->faker->unique()->word(10);
 
-        $directory = public_path('storage/categories');
+        $directory = storage_path('app/public/categories');
     
         // Verifica si el directorio existe; si no, créalo
         if (!is_dir($directory)) {
