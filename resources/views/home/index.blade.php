@@ -24,7 +24,6 @@
 
 <div class="article-container">
     <!-- Listar artículos -->
-
     @foreach ($articles as $article)
         <article class="article">
             <img src="{{asset('storage/' . $article->image)}}" class="img">
