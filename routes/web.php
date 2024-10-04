@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -14,6 +15,9 @@ use App\Http\Controllers\ProfileController;
 //Rutas principales
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/all', [HomeController::class, 'all'])->name('home.all-categories');
+
+//Administrador
+Route::get('/admin', [AdmiController::class, 'index'])->name('admin.index');
 
 //Rutas para los articulos
 
