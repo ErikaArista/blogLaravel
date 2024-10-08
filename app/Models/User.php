@@ -76,5 +76,11 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    //Funcion para mostrar la foto en el apartado de administrador
+    public function adminLte_image()
+    {
+        return asset('storage/'. Auth::user()->profile->photo);
+    }
+
 
 }

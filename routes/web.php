@@ -19,11 +19,24 @@ Route::get('/all', [HomeController::class, 'all'])->name('home.all-categories');
 //Administrador
 Route::get('/admin', [AdmiController::class, 'index'])->name('admin.index');
 
-//Rutas para los articulos
+//Rutas del admin
+Route::namespace('App\Http\Controllers')->prefix('admin')->group(function(){
 
-Route::resource('articles', ArticleController::class)
-->except('show')
-->names('articles');
+    //Articulos
+    Route::resource('articles', 'ArticleController')
+                    ->except('show')
+                    ->names('articles');
+    //Rutas para las categorias
+    Route::resource('categories', 'CategoryController')
+                    ->except('show')    
+                    ->names('categories');
+    //comentarios
+    Route::resource('comments', 'CommentController')
+                    ->only('index', 'destroy')
+                    ->names('comments');
+
+});
+
 
 // Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 // Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
@@ -32,10 +45,7 @@ Route::resource('articles', ArticleController::class)
 // Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
 // Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 
-//Rutas para las categorias
-Route::resource('categories', CategoryController::class)
-->except('show')    
-->names('categories');
+
 
 //Perfiles
 Route::resource('profiles', ProfileController::class)
@@ -47,11 +57,6 @@ Route::get('articles/{article}', [ArticleController::class, 'show'])->name('arti
 
 //ver articulos por categorias
 Route::get('category/{category}', [CategoryController::class, 'detail'])->name('categories.detail');
-
-//comentarios
-Route::resource('comments', CommentController::class)
-                ->only('index', 'destroy')
-                ->names('comments');
 
 //Guardar comentarios
 Route::post('/comment', [CommentController::class, 'store'])->name('comments.store');
